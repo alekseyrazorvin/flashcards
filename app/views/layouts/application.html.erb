@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Флэшкарточкер</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <section id="container">
+
+      <header class="clearfix">
+        <h1>Флэшкарточкер</h1>
+          <ul class="navigation-links">
+            <li><a href="#">Все карточки</a></li>
+            <li><a href="#">Добавить карточку</a></li>
+          </ul>
+      </header>
+
+    <%= yield %>
+
+    </section>
+  </body>
+</html>
