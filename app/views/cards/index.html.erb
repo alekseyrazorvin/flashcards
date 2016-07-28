@@ -9,6 +9,9 @@
         <%= card.original_text %>
         <%= card.translated_text %>
         <%= card.review_date.strftime("%d.%m.%Y") %>
+        </br>
+        <%= link_to 'Редактировать', edit_card_path(card) %>
+        <%= link_to 'Удалить', card, method: :delete, data: { confirm: 'Точно удалить?' } %>
       </pre>
     </div>
   </div>
