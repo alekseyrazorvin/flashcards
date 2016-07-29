@@ -1,0 +1,11 @@
+<h1>Новая карточка</h1>
+
+  <div class="row">
+    <div class="col-md-4">
+      <pre>   
+        <%= @card.original_text %>
+        <%= @card.translated_text %>
+        <%= @card.review_date.strftime("%d.%m.%Y") %>
+      </pre>
+    </div>
+  </div>
