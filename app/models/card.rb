@@ -12,7 +12,7 @@ class Card < ApplicationRecord
   before_save :set_date_review
 
   def set_date_review
-    self.review_date = Time.now.to_date + 3
+    self.review_date = 3.days.from_now.to_date
   end 
 
 end
