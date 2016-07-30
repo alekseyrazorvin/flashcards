@@ -18,14 +18,13 @@ doc = Nokogiri::HTML(open("http://w2mem.com/words/en/1/"))
 parsing_page_forms = doc.css('input.input-sm')
 
 original_text = ''; translated_text = ''
-review_date = 3.days.from_now
 
 parsing_page_forms.each_with_index do |word, index|
   if (index % 2) == 0
     original_text = word.attributes["value"].text
   else
     translated_text = word.attributes["value"].text
-    Card.create(original_text: original_text, translated_text: translated_text, review_date: review_date)
+    Card.create(original_text: original_text, translated_text: translated_text)
     original_text = ''; translated_text = ''
   end
 end
