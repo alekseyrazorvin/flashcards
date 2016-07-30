@@ -5,11 +5,10 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+# second source of words
+# doc = Nokogiri::HTML(open("http://en365.ru/top1000.htm"))
 
 require 'open-uri'
-original_text = []
-translated_text = []
-
 doc = Nokogiri::HTML(open("http://w2mem.com/words/en/1/"))
 
 # tried in rails consol
@@ -17,11 +16,18 @@ doc = Nokogiri::HTML(open("http://w2mem.com/words/en/1/"))
 # translated_text = doc.css('input.input-sm')[5].attributes["value"].text
 
 parsing_page_forms = doc.css('input.input-sm')
-parsing_page_forms.each_with_index {|text,i| original_text << text.attributes["value"].text if i%2 == 0}
-parsing_page_forms.each_with_index {|text,i| translated_text << text.attributes["value"].text if i%2 != 0}
 
-review_date = 3.days.from_now.to_date  
-original_text.zip(translated_text).each do |original, translated|
-  Card.create(original_text: original, translated_text: translated, review_date: review_date)
+original_text = ''; translated_text = ''
+review_date = 3.days.from_now
+
+parsing_page_forms.each_with_index do |word, index|
+  if (index % 2) == 0
+    original_text = word.attributes["value"].text
+  else
+    translated_text = word.attributes["value"].text
+    Card.create(original_text: original_text, translated_text: translated_text, review_date: review_date)
+    original_text = ''; translated_text = ''
+  end
 end
+
 
