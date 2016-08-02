@@ -9,10 +9,12 @@ class Card < ApplicationRecord
     end
   end
 
-  before_save :set_date_review
-
-  def set_date_review
+  before_save :set_review_date
+  before_update :set_review_date
+  def set_review_date
     self.review_date = 3.days.from_now
-  end 
+  end
 
+  scope :target_review_date, -> { where("review_date <= ?", Date.today) }
+ 
 end
