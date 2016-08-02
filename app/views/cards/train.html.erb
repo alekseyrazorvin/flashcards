@@ -9,7 +9,6 @@
       <%= form_tag(controller: "cards", action: "check_answer", :id => @card, method: "post") do %>
         <%= text_field_tag(:q) %>
         <%= hidden_field :card, :original_text %>
-        <%= hidden_field :card, :translated_text %>
         <%= submit_tag("Перевести") %>              
       <% end %>
     </div>

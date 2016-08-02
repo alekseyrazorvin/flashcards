@@ -32,8 +32,8 @@ class CardsController < ApplicationController
   end
 
 
-  def show_random_card
-    @card = Card.target_review_date.offset(rand(Card.target_review_date.count)).first
+  def train
+    @card = Card.random
   end
 
   def check_answer
@@ -41,9 +41,9 @@ class CardsController < ApplicationController
 
     if params[:q] == params[:card][:original_text]
       @card.update(card_params)
-      redirect_to card_url, notice: 'Отлично! Ты знаешь это слово. Повтори через 3 дня.'
+      redirect_to @card, notice: 'Отлично! Ты знаешь это слово. Повтори через 3 дня.'
     else
-      redirect_to card_url, alert: 'Это слово нужно повторить' 
+      redirect_to @card, alert: 'Это слово нужно повторить' 
     end
   end
 

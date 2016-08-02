@@ -10,11 +10,11 @@ class Card < ApplicationRecord
   end
 
   before_save :set_review_date
-  before_update :set_review_date
+  #before_update :set_review_date
   def set_review_date
     self.review_date = 3.days.from_now
   end
 
-  scope :target_review_date, -> { where("review_date <= ?", Date.today) }
- 
-end
+  scope :random, -> { where("review_date <= ?", Date.today).order('RANDOM()').first }
+  
+ end
