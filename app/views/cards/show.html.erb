@@ -1,4 +1,4 @@
-<h1>Новая карточка</h1>
+<h1>Запоминай</h1>
 
   <div class="row">
     <div class="col-md-4">
@@ -7,5 +7,6 @@
         <%= @card.translated_text %>
         <%= @card.review_date.strftime("%d.%m.%Y") %>
       </pre>
+        <%= link_to "следующее слово", root_url %>
     </div>
   </div>

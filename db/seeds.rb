@@ -1,7 +1,12 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+require 'open-uri'
+doc = Nokogiri::HTML(open("http://w2mem.com/words/en/1/"))
+parsing_page_forms = doc.css('.row')
+
+parsing_page_forms.drop(3).each do |pp|
+  unless pp.css('input.input-sm')[0].nil?
+    Card.create(original_text: pp.css('input.input-sm')[0].attributes["value"].text, 
+                translated_text: pp.css('input.input-sm')[1].attributes["value"].text)
+  end
+end
+
+

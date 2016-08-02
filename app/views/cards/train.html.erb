@@ -1,0 +1,20 @@
+<h1>Переведи:</h1>
+
+  
+  <div class="row">
+    <div class="col-md-4">  
+      <h3>
+        <%= @card.translated_text %> 
+      </h3>
+      <%= form_tag(controller: "cards", action: "check_answer", :id => @card, method: "post") do %>
+        <%= text_field_tag(:q) %>
+        <%= hidden_field :card, :original_text %>
+        <%= submit_tag("Перевести") %>              
+      <% end %>
+    </div>
+  </div>
+    
+
+
+
+
