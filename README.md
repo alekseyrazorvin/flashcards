@@ -1,4 +1,4 @@
 # README
 
-[![Build Status](https://travis-ci.org/davetoxa/davetoxa.svg?branch=master)](https://travis-ci.org/davetoxa/davetoxa)
+[![Build Status](https://travis-ci.org/alekseyrazorvin/flashcards.svg?branch=master)](https://travis-ci.org/alekseyrazorvin/flashcards)
 
