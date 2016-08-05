@@ -1,0 +1,11 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: flashcard_db
+  pool: 5
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: test_flashcard_db
+  pool: 5

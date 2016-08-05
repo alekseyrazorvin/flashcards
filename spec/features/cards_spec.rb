@@ -44,7 +44,6 @@ describe 'Card' do
     end
 
     it "show edit card" do
-      byebug
       expect(page).to have_content "I"
       expect(page).to have_content "Я"
     end
