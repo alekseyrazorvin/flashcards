@@ -1,11 +1,13 @@
 <h1>Все карточки</h1>
 
+
 <div class="row">
 
 <% @cards.each do |card| %>
   <div class="row">
     <div class="col-md-4">
-      <pre>   
+      <pre> 
+
         <%= card.original_text %>
         <%= card.translated_text %>
         <%= card.review_date.strftime("%d.%m.%Y") %>
