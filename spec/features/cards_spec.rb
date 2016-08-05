@@ -6,33 +6,11 @@ describe 'Card' do
   before(:all) do
     @card = create(:card)
   end
-  
-  describe '#home' do
     
-    before(:each) do
-      visit root_path
-    end
-
-    it "Shows link to train" do
-      expect(page).to have_content "Флэшкарточкер"
-    end
-
-    it "Shows link to all cards" do
-      expect(page).to have_content "Все карточки"
-    end
-
-    it "Shows link to add card" do
-      expect(page).to have_content "Добавить карточку"
-    end
-  end
-
-  
-
   describe '#index' do
     it "Can see all card" do
       visit root_path
       click_link "Все карточки"
-      expect(page).to have_content "Все карточки"
       expect(page).to have_content @card.original_text
       expect(page).to have_content @card.translated_text
       expect(page).to have_content "Редактировать"
@@ -60,14 +38,15 @@ describe 'Card' do
       visit root_path
       click_link "Все карточки"
       first('.col-md-4').click_link "Редактировать"
-      fill_in "card_original_text", with: @card.original_text
-      fill_in "card_translated_text", with: @card.translated_text
+      fill_in "card_original_text", with: "I"
+      fill_in "card_translated_text", with: "Я"
       click_button "Update Card"
     end
 
     it "show edit card" do
-      expect(page).to have_content @card.original_text
-      expect(page).to have_content @card.translated_text
+      byebug
+      expect(page).to have_content "I"
+      expect(page).to have_content "Я"
     end
   end
 
