@@ -1,30 +1,19 @@
 require 'spec_helper'
+require 'database_cleaner'
+
+DatabaseCleaner.strategy = :truncation
+DatabaseCleaner.clean
+
 
 
 describe Card do
 
-  before(:all) do
-    @card = create(:card)
+  before(:each) do
+    user = create (:user)
+    @card = create(:card, user: user)
   end
 
-  describe 'validation' do
 
-    it 'dont create card without original_text' do
-      @card.original_text = ''
-      expect(@card).not_to be_valid
-    end
-
-    it 'dont create card without translated_text' do
-      @card.translated_text = ''
-      expect(@card).not_to be_valid
-    end
-
-    it 'dont create card if original_text equals translated_text' do
-      @card.translated_text = @card.original_text
-      expect(@card).not_to be_valid
-    end
-
-  end
 
   describe 'review_date' do
 
@@ -34,6 +23,8 @@ describe Card do
 
   end
 
+  DatabaseCleaner.clean
+
   describe 'random card' do
 
     it 'random card equals card' do
@@ -41,6 +32,5 @@ describe Card do
     end
 
   end
-
 
 end

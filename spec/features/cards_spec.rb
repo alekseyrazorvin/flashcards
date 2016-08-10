@@ -1,11 +1,17 @@
 require 'rails_helper'
+require 'database_cleaner'
+
+DatabaseCleaner.strategy = :truncation
+DatabaseCleaner.clean
 
 
 describe 'Card' do
   
-  before(:all) do
-    @card = create(:card)
+  before(:each) do
+    user = create (:user)
+    @card = create(:card, user: user)
   end
+
     
   describe '#index' do
     it "Can see all card" do
