@@ -14,12 +14,10 @@ describe Card do
 
   end
 
-  DatabaseCleaner.clean
-
   describe 'random card' do
 
     it 'random card equals card' do
-      expect(Card.random.original_text).to eq(card.original_text)
+      expect(card).to eq(Card.random)
     end
 
   end
