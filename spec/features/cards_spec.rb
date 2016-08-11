@@ -1,36 +1,35 @@
 require 'rails_helper'
 
-describe('Card') {
+describe Card do
 
-  before(:each) {
-    user = create (:user)
-    @card = create(:card, user: user)
-  }
+  let!(:user) { create :user }
+  let!(:card) { create(:card, user: user) }
 
 
   describe '#index' do
     it "Can see all card" do
       visit root_path
       click_link "Все карточки"
-      expect(page).to have_content @card.original_text
-      expect(page).to have_content @card.translated_text
+      expect(page).to have_content card.original_text
+      expect(page).to have_content card.translated_text
       expect(page).to have_content "Редактировать"
       expect(page).to have_content "Удалить"
     end
   end
 
+
   describe '#new' do
     before do
       visit root_path
       click_link "Добавить карточку"
-      fill_in "card_original_text", with: @card.original_text
-      fill_in "card_translated_text", with: @card.translated_text
+      fill_in "card_original_text", with: card.original_text
+      fill_in "card_translated_text", with: card.translated_text
       click_button "Create Card"
     end
 
     it "show new card" do
-      expect(page).to have_content @card.original_text
-      expect(page).to have_content @card.translated_text
+      expect(page).to have_content card.original_text
+      expect(page).to have_content card.translated_text
     end
   end
 
@@ -59,15 +58,15 @@ describe('Card') {
     end
 
     it "show all cards witout destroy card" do
-      expect(page).to_not have_content @card.original_text
-      expect(page).to_not have_content @card.translated_text
+      expect(page).to_not have_content card.original_text
+      expect(page).to_not have_content card.translated_text
     end
   end
 
   describe '#train' do
     it "Shows translated_text card" do
       visit root_path
-      expect(page).to have_content @card.translated_text
+      expect(page).to have_content card.translated_text
     end
   end
 
@@ -76,7 +75,7 @@ describe('Card') {
     context "when answer equals original text" do
       before do
         visit root_path
-        fill_in "q", with: @card.original_text
+        fill_in "q", with: card.original_text
         click_button "Перевести"
       end
 
@@ -100,4 +99,4 @@ describe('Card') {
   end
 
 
-}
+end
