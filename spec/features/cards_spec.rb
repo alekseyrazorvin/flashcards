@@ -1,18 +1,13 @@
 require 'rails_helper'
-require 'database_cleaner'
 
-DatabaseCleaner.strategy = :truncation
-DatabaseCleaner.clean
+describe('Card') {
 
-
-describe 'Card' do
-  
-  before(:each) do
+  before(:each) {
     user = create (:user)
     @card = create(:card, user: user)
-  end
+  }
 
-    
+
   describe '#index' do
     it "Can see all card" do
       visit root_path
@@ -39,7 +34,7 @@ describe 'Card' do
     end
   end
 
-   describe '#edit' do
+  describe '#edit' do
     before do
       visit root_path
       click_link "Все карточки"
@@ -55,7 +50,7 @@ describe 'Card' do
     end
   end
 
-  
+
   describe '#destroy' do
     before do
       visit root_path
@@ -78,7 +73,7 @@ describe 'Card' do
 
   describe "#check_answer" do
 
-    context "when answer equals original text" do 
+    context "when answer equals original text" do
       before do
         visit root_path
         fill_in "q", with: @card.original_text
@@ -105,5 +100,4 @@ describe 'Card' do
   end
 
 
-
-end
+}
