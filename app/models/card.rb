@@ -15,5 +15,9 @@ class Card < ApplicationRecord
   end
 
   scope :random, -> { where("review_date <= ?", Date.today).order('RANDOM()').first }
+
+  belongs_to :user
+
+  validates_associated :user
   
 end
