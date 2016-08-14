@@ -28,6 +28,8 @@ gem 'jbuilder', '~> 2.5'
 # gem 'bcrypt', '~> 3.1.7'
 gem 'pg'
 gem 'simple_form'
+gem 'haml-rails'
+gem 'sorcery'
 
 
 # Use Capistrano for deployment

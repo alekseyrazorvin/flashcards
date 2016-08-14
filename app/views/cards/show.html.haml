@@ -1,0 +1,12 @@
+%h1 Запоминай
+.row
+  .col-md-4
+    %pre
+      %br
+      = @card.original_text
+      %br
+      = @card.translated_text
+      %br
+      = @card.review_date.strftime("%d.%m.%Y")
+      %br
+    = link_to "тренировать", train_url
