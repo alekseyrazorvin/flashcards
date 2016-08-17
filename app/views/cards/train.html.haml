@@ -1,0 +1,9 @@
+%h1 Переведи:
+.row
+  .col-md-4
+    %h3
+      = @card.translated_text
+    = form_tag(controller: "cards", action: "check_answer", :id => @card, method: "post") do
+      = text_field_tag(:q)
+      = hidden_field :card, :original_text
+              #{submit_tag("Перевести")}

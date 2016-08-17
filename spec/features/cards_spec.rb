@@ -6,6 +6,17 @@ describe Card do
   let!(:card) { create(:card, user: user) }
 
 
+
+  before(:each) do
+    visit root_path
+    click_link "Войти"
+    fill_in "email", with: user.email
+    fill_in "password", with: "1234"
+    click_button "Login"
+  end
+
+
+
   describe '#index' do
     it "Can see all card" do
       visit root_path
@@ -37,7 +48,7 @@ describe Card do
     before do
       visit root_path
       click_link "Все карточки"
-      first('.col-md-4').click_link "Редактировать"
+      click_link "Редактировать"
       fill_in "card_original_text", with: "I"
       fill_in "card_translated_text", with: "Я"
       click_button "Update Card"
@@ -54,7 +65,7 @@ describe Card do
     before do
       visit root_path
       click_link "Все карточки"
-      first('.col-md-4').click_link "Удалить"
+      click_link "Удалить"
     end
 
     it "show all cards witout destroy card" do
@@ -66,6 +77,7 @@ describe Card do
   describe '#train' do
     it "Shows translated_text card" do
       visit root_path
+      click_link "Тренироваться"
       expect(page).to have_content card.translated_text
     end
   end
@@ -75,6 +87,7 @@ describe Card do
     context "when answer equals original text" do
       before do
         visit root_path
+        click_link "Тренироваться"
         fill_in "q", with: card.original_text
         click_button "Перевести"
       end
@@ -87,6 +100,7 @@ describe Card do
     context "when answer not equals original text" do
       before(:each) do
         visit root_path
+        click_link "Тренироваться"
         fill_in "q", with: "абырвалг"
         click_button "Перевести"
       end

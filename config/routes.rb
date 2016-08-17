@@ -1,10 +1,20 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  root to: 'cards#train'
-  
+  root to: 'home#index'
+
+  resources :users
+  resources :user_sessions
+
+  get 'login' => 'user_sessions#new', :as => :login
+  post 'logout' => 'user_sessions#destroy', :as => :logout
+
+  resources :cards
+
   get 'train', to: 'cards#train'
   post 'check_answer', to: 'cards#check_answer'
-  
-  resources :cards 
-  
-  end
+
+  post "oauth/callback" => "oauths#callback"
+  get "oauth/callback" => "oauths#callback" # for use with Github
+  get "oauth/:provider" => "oauths#oauth", :as => :auth_at_provider
+  delete "oauth/:provider" => "oauths#destroy", :as => :delete_oauth
+
+end
