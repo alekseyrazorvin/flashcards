@@ -38,6 +38,22 @@ describe User do
     end
   end
 
+  context 'action before Github login' do
+
+    describe '#github registration' do
+      it 'show notice registration with githib'do
+
+      end
+    end
+
+    describe '#github login'do
+      it 'show notice login with github' do
+
+      end
+
+    end
+  end
+
   context 'action when login'
     before(:each) do
       visit root_path

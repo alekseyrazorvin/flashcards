@@ -28,3 +28,5 @@
               = link_to "Регистрироваться", new_user_path
             %li
               =link_to "Войти", :login
+            %li
+              =link_to "Github login", auth_at_provider_path(:provider => :github)

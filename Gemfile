@@ -30,6 +30,8 @@ gem 'pg'
 gem 'simple_form'
 gem 'haml-rails'
 gem 'sorcery'
+gem "figaro"
+
 
 
 # Use Capistrano for deployment
@@ -39,6 +41,7 @@ group :test do
   gem 'rspec-rails', '~> 3.5.0.beta'
   gem 'factory_girl_rails'
   gem 'capybara'
+  gem 'selenium-webdriver'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
   gem 'database_cleaner'
