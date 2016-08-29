@@ -1,7 +1,8 @@
 %h1 Editing user
 
-= render 'form'
-
-= link_to 'Show', @user
-\|
-= link_to 'Back', root_path
+= simple_form_for(current_user, url: user_path(current_user), method: "put") do |f|
+  = f.error_notification
+  = f.input :email
+  = f.input :password
+  = f.input :password_confirmation
+  = f.button :submit

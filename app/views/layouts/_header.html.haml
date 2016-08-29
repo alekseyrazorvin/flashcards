@@ -22,7 +22,7 @@
             %li.active
               = link_to "Выйти", :logout, method: :post
             %li
-              = link_to "Edit Profile", edit_user_path(current_user.id)
+              = link_to "#{current_user.email}", edit_user_path(current_user)
           - else
             %li.active
               = link_to "Регистрироваться", new_user_path

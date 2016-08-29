@@ -1,7 +1,9 @@
 %h1 Запоминай
 .row
-  .col-md-4
+  .col-md-7
     %pre
+      %br
+      = image_tag @card.picture.url(:thumb)
       %br
       = @card.original_text
       %br

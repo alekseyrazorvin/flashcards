@@ -65,7 +65,7 @@ describe User do
 
     describe '#update' do
       it 'show notice update' do
-        click_link "Edit Profile"
+        click_link user.email
         fill_in "user[email]", with: user.email
         fill_in "user_password", with: "12345"
         fill_in "user_password_confirmation", with: "12345"

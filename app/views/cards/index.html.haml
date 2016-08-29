@@ -1,8 +1,10 @@
 %h1 Все карточки
 - @cards.each do |card|
   .row
-    .col-md-6
+    .col-md-7
       %pre
+        %br
+        = image_tag card.picture.url(:thumb)
         %br
         = card.original_text
         %br

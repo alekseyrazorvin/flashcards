@@ -3,6 +3,12 @@ class CardsController < ApplicationController
 
   def index
     @cards = current_user.cards.all
+    if @cards.first
+      render :index
+    else
+      flash[:notice] = "Карточек нет. Создайте карточку"
+      redirect_to root_url
+    end
   end
 
   def show
@@ -31,9 +37,14 @@ class CardsController < ApplicationController
     redirect_to cards_url
   end
 
-
   def train
     @card = current_user.cards.random
+    if @card.present?
+      render :train
+    else
+      flash[:notice] = "Карточек нет. Создайте карточку"
+      redirect_to root_url
+    end
   end
 
   def check_answer
@@ -53,6 +64,6 @@ class CardsController < ApplicationController
     end
 
     def card_params
-      params.require(:card).permit(:original_text, :translated_text)
+      params.require(:card).permit(:original_text, :translated_text, :picture)
     end
 end

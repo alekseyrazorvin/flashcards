@@ -2,6 +2,7 @@
 .row
   .col-md-4
     %h3
+      = image_tag @card.picture.url(:thumb)
       = @card.translated_text
     = form_tag(controller: "cards", action: "check_answer", :id => @card, method: "post") do
       = text_field_tag(:q)
