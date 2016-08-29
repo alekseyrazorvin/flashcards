@@ -1,4 +1,13 @@
 class Card < ApplicationRecord
+  belongs_to :user
+  belongs_to :deck
+
+  has_attached_file :picture,
+                    styles: { thumb: "360x3600>" },
+                    default_url: "/images/:style/missing.png"
+
+  scope :random, -> { where("review_date <= ?", Date.today).order('RANDOM()').first }
+
   validates :original_text, :translated_text, presence: true
   
   validate :original_translated_text_are_different
@@ -14,15 +23,7 @@ class Card < ApplicationRecord
     self.review_date = Date.today
   end
 
-  scope :random, -> { where("review_date <= ?", Date.today).order('RANDOM()').first }
-
-  belongs_to :user
-
   validates_associated :user
-
-  has_attached_file :picture,
-                    styles: { thumb: "360x3600>" },
-                    default_url: "/images/:style/missing.png"
 
   def picture_from_url=(url_value)
     self.picture = URI.parse(url_value)
