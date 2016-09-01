@@ -2,7 +2,13 @@ class CardsController < ApplicationController
   before_action :set_card, only: [:show, :edit, :update, :destroy, :check_answer]
 
   def index
-    @cards = current_user.cards.all
+    if current_user.current_deck_id
+      @deck = current_user.decks.find(current_user.current_deck_id)
+      @cards = @deck.cards.all
+    else
+      @cards = current_user.cards.all
+    end
+
     if @cards.first
       render :index
     else
@@ -38,7 +44,14 @@ class CardsController < ApplicationController
   end
 
   def train
-    @card = current_user.cards.random
+    if current_user.current_deck_id
+      @deck = current_user.decks.find(current_user.current_deck_id)
+      @card = @deck.cards.random
+    else
+      @card = current_user.cards.random
+    end
+
+
     if @card.present?
       render :train
     else
@@ -64,6 +77,6 @@ class CardsController < ApplicationController
     end
 
     def card_params
-      params.require(:card).permit(:original_text, :translated_text, :picture)
+      params.require(:card).permit(:original_text, :translated_text, :picture, :deck_id)
     end
 end

@@ -28,7 +28,7 @@ class DecksController < ApplicationController
   end
 
   def update
-    if @deck.update(deck_params)
+    if current_user.decks.update(deck_params)
       redirect_to @deck
       flash[:notice] = 'Колода обновлена'
     else
@@ -42,6 +42,16 @@ class DecksController < ApplicationController
     redirect_to decks_url
     flash[:notice] = 'Колода карт удалена'
 
+  end
+
+  def set_current
+    current_user.update(current_deck_id: params[:id])
+    redirect_to decks_path
+  end
+
+  def reset_current
+    current_user.update(current_deck_id: nil)
+    redirect_to decks_path
   end
 
   private

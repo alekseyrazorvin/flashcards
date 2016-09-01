@@ -9,6 +9,8 @@ class Card < ApplicationRecord
   scope :random, -> { where("review_date <= ?", Date.today).order('RANDOM()').first }
 
   validates :original_text, :translated_text, presence: true
+  validates_associated :user, :deck
+  validates_attachment_content_type :picture, content_type: /\Aimage\/.*\Z/
   
   validate :original_translated_text_are_different
   def original_translated_text_are_different
@@ -23,7 +25,7 @@ class Card < ApplicationRecord
     self.review_date = Date.today
   end
 
-  validates_associated :user
+
 
   def picture_from_url=(url_value)
     self.picture = URI.parse(url_value)
@@ -31,7 +33,7 @@ class Card < ApplicationRecord
   end
 
 
-  validates_attachment_content_type :picture, content_type: /\Aimage\/.*\Z/
+
 
 
 end

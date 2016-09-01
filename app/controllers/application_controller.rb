@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
 
   before_action :require_login, :except => [:not_authenticated]
 
+
   private
 
 

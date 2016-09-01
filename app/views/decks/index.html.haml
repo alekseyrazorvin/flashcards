@@ -1,22 +1,27 @@
-%h1 Listing decks
+%h1 Колоды карт
+- @decks.each do |deck|
+  .row
+    .col-md-7
+      %br
+      - if current_user.current_deck_id
+        - if current_user.decks.find(current_user.current_deck_id).title == deck.title
+          %b
+            = deck.title
+        - else
+          = deck.title
+      - else
+        = deck.title
 
-%table
-  %thead
-    %tr
-      %th Title
-      %th User
-      %th
-      %th
-      %th
-
-  %tbody
-    - @decks.each do |deck|
-      %tr
-        %td= deck.title
-        %td= link_to 'Show', deck
-        %td= link_to 'Edit', edit_deck_path(deck)
-        %td= link_to 'Destroy', deck, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
+      = link_to 'Тренировать слова в этой колоде', set_current_deck_path(deck), method: :put
+      |
+      = link_to 'Изменить название колоды', edit_deck_path(deck)
+      |
+      = link_to 'Удалить колоду', deck, :method => :delete, :data => { :confirm => 'Are you sure?' }
 %br
-
-= link_to 'New Deck', new_deck_path
+- unless current_user.current_deck_id
+  %b
+    Текущая колода не выбрана
+= link_to 'Тренировать все слова подряд, без выбора колоды', decks_reset_current_path
+%br
+%br
+= link_to 'Новая колода', new_deck_path

@@ -1,0 +1,10 @@
+.panel.panel-default
+  .panel-body
+    - if current_user
+      Колода:
+      - if current_user.current_deck_id
+        = current_user.decks.find(current_user.current_deck_id).title
+      - else
+        Без колоды
+    - else
+      Зарегестрируйтесь у нас. Или залогинтесь. И запоминайте слова.

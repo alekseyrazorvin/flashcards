@@ -3,7 +3,6 @@ Rails.application.routes.draw do
   root to: 'home#index'
 
   resources :cards
-
   get 'train', to: 'cards#train'
   post 'check_answer', to: 'cards#check_answer'
 
@@ -19,6 +18,11 @@ Rails.application.routes.draw do
   get "oauth/:provider" => "oauths#oauth", :as => :auth_at_provider
   delete "oauth/:provider" => "oauths#destroy", :as => :delete_oauth
 
-  resources :decks
+  resources :decks do
+    put "set_current", on: :member
+  end
+  get 'decks_reset_current', to: 'decks#reset_current'
+
+
 
 end
