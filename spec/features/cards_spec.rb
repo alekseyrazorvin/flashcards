@@ -18,7 +18,7 @@ describe Card do
 
 
   describe '#index' do
-    it "Can see all card" do
+    it "Can see all cards" do
       visit root_path
       click_link "Все карточки"
       expect(page).to have_content card.original_text
@@ -82,33 +82,61 @@ describe Card do
     end
   end
 
-  describe "#check_answer" do
+  describe "#trainig" do
 
-    context "when answer equals original text" do
-      before do
-        visit root_path
-        click_link "Тренироваться"
-        fill_in "q", with: card.original_text
-        click_button "Перевести"
+    context "do not set current deck" do
+      context "cards exist" do
+
+
+        context "when answer equals original text" do
+          before do
+            visit root_path
+            click_link "Тренироваться"
+            fill_in "q", with: card.original_text
+            click_button "Перевести"
+          end
+
+          it "shows ок" do
+            expect(page).to have_content "Отлично! Ты знаешь это слово. Повтори через 3 дня"
+          end
+        end
+
+        context "when answer not equals original text" do
+          before(:each) do
+            visit root_path
+            click_link "Тренироваться"
+            fill_in "q", with: "абырвалг"
+            click_button "Перевести"
+          end
+
+          it "shows not ok" do
+            expect(page).to have_content "Это слово нужно повторить"
+          end
+        end
+
       end
 
-      it "shows ок" do
-        expect(page).to have_content "Отлично! Ты знаешь это слово. Повтори через 3 дня"
+      context "cards in all deck is not exist" do
+        describe 'show notice add cards' do
+
+        end
+
       end
     end
 
-    context "when answer not equals original text" do
-      before(:each) do
-        visit root_path
-        click_link "Тренироваться"
-        fill_in "q", with: "абырвалг"
-        click_button "Перевести"
+    context "set current deck " do
+      context "cards in deck exist" do
+
       end
 
-      it "shows not ok" do
-        expect(page).to have_content "Это слово нужно повторить"
+      context "cards in deck is not exist" do
+        describe 'show notice add cards' do
+
+        end
       end
     end
+
+
 
   end
 
