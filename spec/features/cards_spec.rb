@@ -19,7 +19,6 @@ describe Card do
 
   describe '#index' do
     it "Can see all cards" do
-      visit root_path
       click_link "Все карточки"
       expect(page).to have_content card.original_text
       expect(page).to have_content card.translated_text
@@ -31,7 +30,6 @@ describe Card do
 
   describe '#new' do
     before do
-      visit root_path
       click_link "Добавить карточку"
       fill_in "card_original_text", with: card.original_text
       fill_in "card_translated_text", with: card.translated_text
@@ -46,7 +44,6 @@ describe Card do
 
   describe '#edit' do
     before do
-      visit root_path
       click_link "Все карточки"
       click_link "Редактировать"
       fill_in "card_original_text", with: "I"
@@ -62,13 +59,14 @@ describe Card do
 
 
   describe '#destroy' do
-    before do
-      visit root_path
-      click_link "Все карточки"
-      click_link "Удалить"
-    end
+#    before do
+#      click_link "Все карточки"
+#      click_link "Удалить"
+#    end
 
     it "show all cards witout destroy card" do
+      click_link "Все карточки"
+      click_link "Удалить"
       expect(page).to_not have_content card.original_text
       expect(page).to_not have_content card.translated_text
     end
@@ -86,30 +84,24 @@ describe Card do
 
     context "do not set current deck" do
       context "cards exist" do
+        before(:each) do
+          visit root_path
+          click_link "Тренироваться"
+        end
 
 
         context "when answer equals original text" do
-          before do
-            visit root_path
-            click_link "Тренироваться"
+          it "shows ок" do
             fill_in "q", with: card.original_text
             click_button "Перевести"
-          end
-
-          it "shows ок" do
             expect(page).to have_content "Отлично! Ты знаешь это слово. Повтори через 3 дня"
           end
         end
 
         context "when answer not equals original text" do
-          before(:each) do
-            visit root_path
-            click_link "Тренироваться"
+          it "shows not ok" do
             fill_in "q", with: "абырвалг"
             click_button "Перевести"
-          end
-
-          it "shows not ok" do
             expect(page).to have_content "Это слово нужно повторить"
           end
         end

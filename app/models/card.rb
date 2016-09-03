@@ -8,6 +8,7 @@ class Card < ApplicationRecord
 
   scope :random, -> { where("review_date <= ?", Date.today).order('RANDOM()').first }
 
+
   validates :original_text, :translated_text, presence: true
   validates_associated :user, :deck
   validates_attachment_content_type :picture, content_type: /\Aimage\/.*\Z/

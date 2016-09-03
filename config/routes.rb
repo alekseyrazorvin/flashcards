@@ -1,12 +1,12 @@
 Rails.application.routes.draw do
 
-  root to: 'home#index'
+  root to: 'cards#train'
 
   resources :cards
   get 'train', to: 'cards#train'
   post 'check_answer', to: 'cards#check_answer'
 
-  resources :users, only: [:new, :create, :edit, :update]
+  resources :users, only: [:show, :new, :create, :edit, :update]
   resources :user_sessions, only: [:new, :create]
 
   get 'login' => 'user_sessions#new', :as => :login
@@ -21,7 +21,6 @@ Rails.application.routes.draw do
   resources :decks do
     put "set_current", on: :member
   end
-  get 'decks_reset_current', to: 'decks#reset_current'
 
 
 

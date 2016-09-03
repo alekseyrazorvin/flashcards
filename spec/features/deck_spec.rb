@@ -15,7 +15,6 @@ describe Deck do
 
   describe '#index' do
     it "Can see all decks" do
-      visit root_path
       click_link "Все колоды"
       expect(page).to have_content deck.title
       expect(page).to have_content "Тренировать слова в этой колоде"
@@ -70,8 +69,8 @@ describe Deck do
     it 'title unselected deck' do
       visit root_path
       click_link "Все колоды"
-      click_link "Тренировать все слова подряд, без выбора колоды"
-      expect(page).to_not have_css("col-md-7 b", :text => "Текущая колода не выбрана")
+      click_link "Не использовать"
+      expect(page).to_not have_css("col-md-7 b")
     end
   end
 

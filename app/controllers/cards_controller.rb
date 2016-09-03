@@ -9,11 +9,9 @@ class CardsController < ApplicationController
       @cards = current_user.cards.all
     end
 
-    if @cards.first
-      render :index
-    else
-      flash[:notice] = "Карточек нет. Создайте карточку"
-      redirect_to root_url
+    unless @cards.first
+      flash[:alert] = "Карточек нет. Создайте карточку"
+      redirect_to new_card_url
     end
   end
 
@@ -55,8 +53,8 @@ class CardsController < ApplicationController
     if @card.present?
       render :train
     else
-      flash[:notice] = "Карточек нет. Создайте карточку"
-      redirect_to root_url
+      redirect_to new_card_url
+      flash[:alert] = "Карточек нет. Создайте карточку"
     end
   end
 

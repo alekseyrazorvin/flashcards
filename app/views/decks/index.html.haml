@@ -1,10 +1,10 @@
 %h1 Колоды карт
 - @decks.each do |deck|
   .row
-    .col-md-7
+    .col-md-10
       %br
       - if current_user.current_deck_id
-        - if current_user.decks.find(current_user.current_deck_id).title == deck.title
+        - if current_user.current_deck_id == deck.id
           %b
             = deck.title
         - else
@@ -14,14 +14,12 @@
 
       = link_to 'Тренировать слова в этой колоде', set_current_deck_path(deck), method: :put
       |
+      = link_to 'Не использовать', set_current_deck_path(deck), method: :put
+      |
       = link_to 'Изменить название', edit_deck_path(deck)
       |
       = link_to 'Удалить', deck, :method => :delete, :data => { :confirm => 'Are you sure?' }
-%br
-- unless current_user.current_deck_id
-  %b
-    Текущая колода не выбрана
-= link_to 'Тренировать все слова подряд, без выбора колоды', decks_reset_current_path
+
 %br
 %br
 = link_to 'Новая колода', new_deck_path

@@ -45,12 +45,11 @@ class DecksController < ApplicationController
   end
 
   def set_current
-    current_user.update(current_deck_id: params[:id])
-    redirect_to decks_path
-  end
-
-  def reset_current
-    current_user.update(current_deck_id: nil)
+    if current_user.current_deck_id == params[:id].to_i
+      current_user.update(current_deck_id: nil)
+    else
+      current_user.update(current_deck_id: params[:id])
+    end
     redirect_to decks_path
   end
 

@@ -79,7 +79,7 @@ describe User do
     describe "#logout" do
       it 'show notice logout' do
         click_link "Выйти"
-        expect(page).to have_content "Вышли из системы! Ждем снова."
+        expect(page).to have_content "Зарегестрируйтесь у нас. Или залогинтесь. И запоминайте слова."
       end
 
     end
