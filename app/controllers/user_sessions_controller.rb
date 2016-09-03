@@ -7,7 +7,7 @@ class UserSessionsController < ApplicationController
 
   def create
     if @user = login(params[:email], params[:password])
-      redirect_back_or_to(root_url, notice: 'Вы в системе. Начните тренировку')
+      redirect_to(@user, notice: 'Вы в системе. Начните тренировку')
     else
       flash.now[:alert] = 'Неправильные данные. Попробуйте еще раз.'
       render action: 'new'

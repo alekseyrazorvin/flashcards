@@ -3,6 +3,8 @@ class UsersController < ApplicationController
 #  before_action :set_user, only: [:show, :edit, :update]
   skip_before_action :require_login, only: [:new, :create]
 
+  def show
+  end
 
   def new
     @user = User.new
@@ -17,7 +19,7 @@ class UsersController < ApplicationController
       auto_login(@user)
       flash[:notice] = "Ты зарегался на нашем сервисе"
       flash[:success] = "Начинай тренировку"
-      redirect_to root_url
+      redirect_to @user
     else
       render :new
     end
@@ -27,7 +29,7 @@ class UsersController < ApplicationController
   def update
       if current_user.update(user_params)
         flash[:notice] = "Данные обновлены"
-        redirect_to root_url
+        redirect_to :user
       else
         flash[:alert] = "Что-то не так. Обновите еще раз"
         render :edit

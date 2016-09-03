@@ -2,12 +2,16 @@ class CardsController < ApplicationController
   before_action :set_card, only: [:show, :edit, :update, :destroy, :check_answer]
 
   def index
-    @cards = current_user.cards.all
-    if @cards.first
-      render :index
+    if current_user.current_deck_id
+      @deck = current_user.decks.find(current_user.current_deck_id)
+      @cards = @deck.cards.all
     else
-      flash[:notice] = "Карточек нет. Создайте карточку"
-      redirect_to root_url
+      @cards = current_user.cards.all
+    end
+
+    unless @cards.first
+      flash[:alert] = "Карточек нет. Создайте карточку"
+      redirect_to new_card_url
     end
   end
 
@@ -38,12 +42,19 @@ class CardsController < ApplicationController
   end
 
   def train
-    @card = current_user.cards.random
+    if current_user.current_deck_id
+      @deck = current_user.decks.find(current_user.current_deck_id)
+      @card = @deck.cards.random
+    else
+      @card = current_user.cards.random
+    end
+
+
     if @card.present?
       render :train
     else
-      flash[:notice] = "Карточек нет. Создайте карточку"
-      redirect_to root_url
+      redirect_to new_card_url
+      flash[:alert] = "Карточек нет. Создайте карточку"
     end
   end
 
@@ -64,6 +75,6 @@ class CardsController < ApplicationController
     end
 
     def card_params
-      params.require(:card).permit(:original_text, :translated_text, :picture)
+      params.require(:card).permit(:original_text, :translated_text, :picture, :deck_id)
     end
 end

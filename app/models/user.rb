@@ -3,6 +3,9 @@ class User < ApplicationRecord
     config.authentications_class = Authentication
   end
 
+  has_many :decks, dependent: :destroy
+  has_many :cards, dependent: :destroy
+
   has_many :authentications, :dependent => :destroy
   accepts_nested_attributes_for :authentications
 
@@ -16,5 +19,5 @@ class User < ApplicationRecord
 
   validates :email, uniqueness: true
 
-  has_many :cards
+
 end
