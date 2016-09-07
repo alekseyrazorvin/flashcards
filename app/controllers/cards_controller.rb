@@ -32,7 +32,7 @@ class CardsController < ApplicationController
   end
   
   def update
-    @card.update(card_params)
+    @card.update_column(:review_date, params[:card][:review_date])
     redirect_to @card
   end
 
@@ -44,17 +44,22 @@ class CardsController < ApplicationController
   def train
     if current_user.current_deck_id
       @deck = current_user.decks.find(current_user.current_deck_id)
-      @card = @deck.cards.random
+      @card = @deck.cards.random_card
     else
-      @card = current_user.cards.random
+      @card = current_user.cards.random_card
     end
 
 
-    if @card.present?
+    if @card
       render :train
     else
-      redirect_to new_card_url
-      flash[:alert] = "Карточек нет. Создайте карточку"
+      if current_user.cards.exist?
+        flash[:alert] = "На сегодня карточки для тренировки закончились . Установите дату проверки слова вручную из списка ниже"
+        redirect_to cards_url
+      else
+        redirect_to new_card_url
+        flash[:alert] = "Карточек нет. Создайте карточку"
+      end
     end
   end
 
@@ -75,6 +80,6 @@ class CardsController < ApplicationController
     end
 
     def card_params
-      params.require(:card).permit(:original_text, :translated_text, :picture, :deck_id)
+      params.require(:card).permit(:original_text, :translated_text, :review_date, :picture, :deck_id, :user_id)
     end
 end

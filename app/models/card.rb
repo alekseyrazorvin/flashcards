@@ -7,9 +7,10 @@ class Card < ApplicationRecord
                     default_url: "/images/:style/missing.png"
 
   scope :random, -> { where("review_date <= ?", Date.today).order('RANDOM()').first }
+  scope :random_from_current_deck, ->(d) { where("review_date <= ? AND deck_id = ?", Date.today, d).order('RANDOM()').first }
 
 
-  validates :original_text, :translated_text, presence: true
+  validates :original_text, :translated_text, :picture, :deck_id, presence: true
   validates_associated :user, :deck
   validates_attachment_content_type :picture, content_type: /\Aimage\/.*\Z/
   
@@ -21,9 +22,14 @@ class Card < ApplicationRecord
     end
   end
 
+  def self.random_card
+    self.where(["review_date < ?", Date.today]).order('RANDOM()').first
+  end
+
+
   before_save :set_review_date
   def set_review_date
-    self.review_date = Date.today
+    self.review_date = 3.days.from_now
   end
 
 
