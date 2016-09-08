@@ -6,7 +6,6 @@ describe Card do
   let!(:card) { create(:card, user: user) }
 
 
-
   before(:each) do
     visit root_path
     click_link "Войти"
