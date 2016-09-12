@@ -1,10 +1,11 @@
 %h1 Редактируйте карточку
 %pre
   = simple_form_for @card do |f|
-  = f.error_notification
-  = f.input  :original_text
-  = f.input  :translated_text
-  = f.input  :review_date, as: :string
-  = f.input  :picture, as: :file
-  = f.association  :deck, collection: current_user.decks
-  = f.button :submit
+    = f.error_notification
+    = f.input  :original_text
+    = f.input  :translated_text
+    = f.input  :review_date, as: :string
+    = f.input  :picture, as: :file
+    = f.association  :deck, collection: current_user.decks
+    = f.hidden_field :user_id, value: current_user.id
+    = f.button :submit

@@ -1,9 +1,9 @@
 class CardsController < ApplicationController
   before_action :set_card, only: [:show, :edit, :update, :destroy, :check_answer]
+  before_action :set_deck, only: [:index, :train]
 
   def index
     if current_user.current_deck_id
-      @deck = current_user.decks.find(current_user.current_deck_id)
       @cards = @deck.cards.all
     else
       @cards = current_user.cards.all
@@ -32,7 +32,9 @@ class CardsController < ApplicationController
   end
   
   def update
-    @card.update_column(:review_date, params[:card][:review_date])
+    @card.update_columns(review_date: params[:card][:review_date],
+                          original_text: params[:card][:original_text],
+                          translated_text: params[:card][:translated_text])
     redirect_to @card
   end
 
@@ -43,17 +45,16 @@ class CardsController < ApplicationController
 
   def train
     if current_user.current_deck_id
-      @deck = current_user.decks.find(current_user.current_deck_id)
       @card = @deck.cards.random_card
     else
       @card = current_user.cards.random_card
     end
 
-
     if @card
       render :train
     else
-      if current_user.cards.exist?
+      # current_user.decks
+      if current_user.cards.first
         flash[:alert] = "На сегодня карточки для тренировки закончились . Установите дату проверки слова вручную из списка ниже"
         redirect_to cards_url
       else
@@ -77,6 +78,10 @@ class CardsController < ApplicationController
   private
     def set_card
       @card = current_user.cards.find(params[:id])
+    end
+
+    def set_deck
+      @deck = current_user.decks.find(current_user.current_deck_id) if current_user.current_deck_id
     end
 
     def card_params

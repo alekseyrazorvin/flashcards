@@ -30,9 +30,9 @@ gem 'simple_form'
 gem 'haml-rails'
 gem 'sorcery'
 gem "figaro"
-gem "paperclip"
+gem "paperclip", git: "git://github.com/thoughtbot/paperclip.git"
 gem 'rmagick'
-gem 'aws-sdk'
+gem 'aws-sdk', '~> 2'
 
 
 
