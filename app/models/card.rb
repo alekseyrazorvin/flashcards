@@ -23,7 +23,7 @@ class Card < ApplicationRecord
   end
 
   def self.random_card
-    self.where(["review_date < ?", Date.today]).order('RANDOM()').first
+    self.where(["review_date <= ?", Date.today]).order('RANDOM()').first
   end
 
 
