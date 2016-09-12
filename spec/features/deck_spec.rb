@@ -17,7 +17,6 @@ describe Deck do
     it "Can see all decks" do
       click_link "Все колоды"
       expect(page).to have_content deck.title
-      expect(page).to have_content "Тренировать слова в этой колоде"
       expect(page).to have_content "Изменить название"
       expect(page).to have_content "Удалить"
     end
@@ -60,7 +59,7 @@ describe Deck do
     it "title current deck show bold" do
       visit root_path
       click_link "Все колоды"
-      click_link "Тренировать слова в этой колоде"
+      click_link "Сделать колоду текущей"
       expect(page).to_not have_css("col-md-7 b", :text => "Фрукты")
     end
   end
@@ -69,7 +68,8 @@ describe Deck do
     it 'title unselected deck' do
       visit root_path
       click_link "Все колоды"
-      click_link "Не использовать"
+      click_link "Сделать колоду текущей"
+      click_link "Не использовать колоду"
       expect(page).to_not have_css("col-md-7 b")
     end
   end

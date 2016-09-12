@@ -16,6 +16,6 @@ class UserSessionsController < ApplicationController
 
   def destroy
     logout
-    redirect_to(root_url, notice: 'Вышли из системы! Ждем снова.')
+    redirect_to(index_url, notice: 'Вышли из системы! Ждем снова.')
   end
 end

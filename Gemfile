@@ -3,8 +3,7 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.0'
-# Use sqlite3 as the database for Active Record
-# 'sqlite3'
+
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 # Use SCSS for stylesheets
@@ -31,9 +30,9 @@ gem 'simple_form'
 gem 'haml-rails'
 gem 'sorcery'
 gem "figaro"
-gem "paperclip"
+gem "paperclip", git: "git://github.com/thoughtbot/paperclip.git"
 gem 'rmagick'
-gem 'aws-sdk'
+gem 'aws-sdk', '~> 2'
 
 
 
@@ -61,3 +60,7 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+# for heroku
+ruby "2.3.1"
+

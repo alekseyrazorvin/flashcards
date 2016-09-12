@@ -1,25 +1,20 @@
-# SQLite version 3.x
-#   gem install sqlite3
-#
-#   Ensure the SQLite 3 gem is defined in your Gemfile
-#   gem 'sqlite3'
-#
-#default: &default
-#  adapter: sqlite3
-#  pool: 5
-#  timeout: 5000
-
-development:
+default: &default
   adapter: postgresql
-  encoding: unicode
   database: flashcard_db
   pool: 5
+  timeout: 5000
+
+development:
+  <<: *default
 
 test:
-  adapter: postgresql
-  encoding: unicode
+  <<: *default
   database: test_flashcard_db
-  pool: 5
+
+production:
+  <<: *default
+
+
 
 
 # Warning: The database defined as "test" will be erased and
