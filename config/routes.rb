@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
   root to: 'cards#train'
+  get 'index', to: 'home#index'
 
   resources :cards
   get 'train', to: 'cards#train'
