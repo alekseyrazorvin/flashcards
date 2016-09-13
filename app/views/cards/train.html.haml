@@ -2,6 +2,12 @@
 .row
   .col-md-4
     %h3
+      количество правильных попыток
+      = @card.number_of_correct
+      %br
+      количество не правильных попыток
+      = @card.number_of_incorrect
+      %br
       = image_tag @card.picture.url(:thumb)
       %br
       = @card.translated_text

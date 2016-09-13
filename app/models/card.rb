@@ -23,24 +23,40 @@ class Card < ApplicationRecord
   end
 
   def self.random_card
-    self.where(["review_date <= ?", Date.today]).order('RANDOM()').first
+    self.self.where(["review_date <= ?", Date.today]).order('RANDOM()').first
   end
-
 
   before_save :set_review_date
   def set_review_date
-    self.review_date = 3.days.from_now
+    self.review_date = Date.today + PERIODS[number_of_correct]
   end
-
-
 
   def picture_from_url=(url_value)
     self.picture = URI.parse(url_value)
     @picture_from_url = url_value
   end
 
+  PERIODS = [0, 0.5, 3, 7, 14, 30].freeze
 
+  def correct_answer
+    if number_of_correct <= 4
+      update_columns(number_of_correct: number_of_correct + 1)
+    end
+    update_columns(number_of_incorrect: 0)
+    set_review_date
+    update_columns(review_date: review_date)
+  end
 
-
+  def incorrect_answer
+    update_columns(number_of_incorrect: number_of_incorrect + 1)
+    if number_of_incorrect == 3
+      if number_of_correct > 0
+        update_columns(number_of_correct: number_of_correct - 1)
+        update_columns(number_of_incorrect: 0)
+      end
+    end
+    set_review_date
+    update_columns(review_date: review_date)
+  end
 
 end
