@@ -19,31 +19,31 @@ describe Card do
 
     it 'first correct answer review_date increases 0,5 day ' do
       card.correct_answer
-      expect(card.review_date.strftime("%Y-%m-%d")).to eq(Date.today.strftime("%Y-%m-%d"))
+      expect(card.review_date).to eq(Date.today + 0.5)
     end
 
     it 'second correct answer review_date increases 3 day ' do
       card.update_columns(number_of_correct: 1)
       card.correct_answer
-      expect(card.review_date.strftime("%Y-%m-%d")).to eq(3.days.from_now.strftime("%Y-%m-%d"))
+      expect(card.review_date).to eq(Date.today + 3)
     end
 
     it 'fourth correct answer review_date increases 7 day ' do
       card.update_columns(number_of_correct: 2)
       card.correct_answer
-      expect(card.review_date.strftime("%Y-%m-%d")).to eq(7.days.from_now.strftime("%Y-%m-%d"))
+      expect(card.review_date).to eq(Date.today + 7)
     end
 
     it 'fifth correct answer review_date increases 14 day ' do
       card.update_columns(number_of_correct: 3)
       card.correct_answer
-      expect(card.review_date.strftime("%Y-%m-%d")).to eq(14.days.from_now.strftime("%Y-%m-%d"))
+      expect(card.review_date).to eq(Date.today + 14)
     end
 
     it 'sixth correct answer review_date increases 30 day ' do
       card.update_columns(number_of_correct: 4)
       card.correct_answer
-      expect(card.review_date.strftime("%Y-%m-%d")).to eq(30.days.from_now.strftime("%Y-%m-%d"))
+      expect(card.review_date).to eq(Date.today + 30)
     end
   end
 
