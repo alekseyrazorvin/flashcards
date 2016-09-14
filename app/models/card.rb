@@ -22,9 +22,9 @@ class Card < ApplicationRecord
     end
   end
 
-  def self.random_card
+ def self.random_card
     self.where(["review_date <= ?", Date.today]).order('RANDOM()').first
-  end
+ end
 
   before_save :set_review_date
   def set_review_date
@@ -40,23 +40,28 @@ class Card < ApplicationRecord
 
   def correct_answer
     if number_of_correct <= 4
-      update_columns(number_of_correct: number_of_correct + 1)
+      self.number_of_correct += 1
     end
-    update_columns(number_of_incorrect: 0)
+    self.number_of_incorrect = 0
     set_review_date
-    update_columns(review_date: review_date)
+    update_columns(review_date: review_date,
+                   number_of_correct: number_of_correct,
+                   number_of_incorrect: number_of_incorrect)
   end
 
+
   def incorrect_answer
-    update_columns(number_of_incorrect: number_of_incorrect + 1)
+    self.number_of_incorrect += 1
     if number_of_incorrect == 3
       if number_of_correct > 0
-        update_columns(number_of_correct: number_of_correct - 1)
-        update_columns(number_of_incorrect: 0)
+        self.number_of_correct -= 1
+        self.number_of_incorrect = 0
       end
     end
     set_review_date
-    update_columns(review_date: review_date)
+    update_columns(review_date: review_date,
+                   number_of_correct: number_of_correct,
+                   number_of_incorrect: number_of_incorrect)
   end
 
 end

@@ -18,7 +18,8 @@ describe Card do
     end
 
     it 'first correct answer review_date increases 0,5 day ' do
-
+      card.correct_answer
+      expect(card.review_date.strftime("%Y-%m-%d")).to eq(Date.today.strftime("%Y-%m-%d"))
     end
 
     it 'second correct answer review_date increases 3 day ' do
@@ -28,15 +29,21 @@ describe Card do
     end
 
     it 'fourth correct answer review_date increases 7 day ' do
-
+      card.update_columns(number_of_correct: 2)
+      card.correct_answer
+      expect(card.review_date.strftime("%Y-%m-%d")).to eq(7.days.from_now.strftime("%Y-%m-%d"))
     end
 
     it 'fifth correct answer review_date increases 14 day ' do
-
+      card.update_columns(number_of_correct: 3)
+      card.correct_answer
+      expect(card.review_date.strftime("%Y-%m-%d")).to eq(14.days.from_now.strftime("%Y-%m-%d"))
     end
 
     it 'sixth correct answer review_date increases 30 day ' do
-
+      card.update_columns(number_of_correct: 4)
+      card.correct_answer
+      expect(card.review_date.strftime("%Y-%m-%d")).to eq(30.days.from_now.strftime("%Y-%m-%d"))
     end
   end
 
