@@ -68,10 +68,11 @@ class CardsController < ApplicationController
     #render plain: card_params.inspect + params[:q].inspect + params[:card][:original_text].inspect
 
     if params[:q] == params[:card][:original_text]
-      @card.update(card_params)
-      redirect_to @card, notice: 'Отлично! Ты знаешь это слово. Повтори через 3 дня.'
+      @card.correct_answer
+      redirect_to @card, notice: 'Отлично! Ты знаешь это слово. Повторяй реже'
     else
-      redirect_to @card, alert: 'Это слово нужно повторить' 
+      @card.incorrect_answer
+      redirect_to @card, alert: 'Это слово нужно повторять чаще'
     end
   end
 

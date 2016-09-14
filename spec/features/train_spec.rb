@@ -24,7 +24,7 @@ describe Card do
             Card.all
             fill_in "q", with: card.original_text
             click_button "Перевести"
-            expect(page).to have_content "Отлично! Ты знаешь это слово. Повтори через 3 дня"
+            expect(page).to have_content "Отлично! Ты знаешь это слово. Повторяй реже"
           end
         end
 
@@ -32,7 +32,7 @@ describe Card do
           it "shows not ok" do
             fill_in "q", with: "абырвалг"
             click_button "Перевести"
-            expect(page).to have_content "Это слово нужно повторить"
+            expect(page).to have_content "Это слово нужно повторять чаще"
           end
         end
 

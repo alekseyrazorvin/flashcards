@@ -11,7 +11,6 @@ describe Card do
     fill_in "email", with: user.email
     fill_in "password", with: "1234"
     click_button "Login"
-    card.update_columns(review_date: Date.today)
     visit root_path
   end
 
