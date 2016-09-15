@@ -11,7 +11,6 @@ describe Card do
     fill_in "email", with: user.email
     fill_in "password", with: "1234"
     click_button "Login"
-    card.update_columns(review_date: Date.today)
     visit root_path
   end
 
@@ -21,7 +20,6 @@ describe Card do
       context "cards exist" do
         context "when answer equals original text" do
           it "shows ок" do
-            Card.all
             fill_in "q", with: card.original_text
             click_button "Перевести"
             expect(page).to have_content "Отлично! Ты знаешь это слово. Повторяй реже"
@@ -36,13 +34,19 @@ describe Card do
           end
         end
 
+        context "when answer with typo" do
+          it "shows not ok" do
+            fill_in "q", with: "поук"
+            click_button "Перевести"
+            expect(page).to have_content " , а напечтали с опечатками: "
+          end
+        end
       end
 
       context "cards in all deck is not exist" do
         describe 'show notice add cards' do
 
         end
-
       end
     end
 
