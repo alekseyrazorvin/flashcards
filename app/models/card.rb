@@ -13,8 +13,8 @@ class Card < ApplicationRecord
   validates :original_text, :translated_text, :picture, :deck_id, presence: true
   validates_associated :user, :deck
   validates_attachment_content_type :picture, content_type: /\Aimage\/.*\Z/
-  
   validate :original_translated_text_are_different
+
   def original_translated_text_are_different
     if self.original_text == self.translated_text
       errors.add(:original_text, 'должен отличаться')
