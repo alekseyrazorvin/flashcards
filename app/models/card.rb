@@ -26,6 +26,11 @@ class Card < ApplicationRecord
     self.where(["review_date <= ?", Date.today]).order('RANDOM()').first
  end
 
+  #methods for hand testing
+  #def self.random_card
+  #  self.order('RANDOM()').first
+  #end
+
   before_save :set_review_date
   def set_review_date
     self.review_date = Date.today + PERIODS[number_of_correct]
@@ -49,7 +54,6 @@ class Card < ApplicationRecord
                    number_of_incorrect: number_of_incorrect)
   end
 
-
   def incorrect_answer
     self.number_of_incorrect += 1
     if number_of_incorrect == 3
@@ -62,6 +66,10 @@ class Card < ApplicationRecord
     update_columns(review_date: review_date,
                    number_of_correct: number_of_correct,
                    number_of_incorrect: number_of_incorrect)
+  end
+
+  def typo(input_word)
+    Levenshtein.distance(input_word, original_text)
   end
 
 end

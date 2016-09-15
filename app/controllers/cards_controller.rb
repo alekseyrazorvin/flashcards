@@ -69,11 +69,19 @@ class CardsController < ApplicationController
 
     if params[:q] == params[:card][:original_text]
       @card.correct_answer
-      redirect_to @card, notice: 'Отлично! Ты знаешь это слово. Повторяй реже'
+      flash[:notice] = 'Отлично! Ты знаешь это слово. Повторяй реже'
     else
-      @card.incorrect_answer
-      redirect_to @card, alert: 'Это слово нужно повторять чаще'
+      if @card.typo(params[:q]) <= 2
+        @card.correct_answer
+        flash[:alert] = @card.translated_text + ' переводится: ' +
+                          @card.original_text +
+                          ' , а напечтали с опечатками: ' + params[:q]
+      else
+        @card.incorrect_answer
+        flash[:alert] = 'Это слово нужно повторять чаще'
+      end
     end
+    redirect_to @card
   end
 
   private

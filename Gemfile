@@ -33,6 +33,8 @@ gem "figaro"
 gem "paperclip", git: "git://github.com/thoughtbot/paperclip.git"
 gem 'rmagick'
 gem 'aws-sdk', '~> 2'
+gem 'levenshtein-ffi', :require => 'levenshtein'
+
 
 
 
